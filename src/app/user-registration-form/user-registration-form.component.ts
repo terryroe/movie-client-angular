@@ -12,14 +12,27 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Router } from '@angular/router';
 
+/**
+ * The User Registration Form component.
+ */
 @Component({
   selector: 'app-user-registration-form',
   templateUrl: './user-registration-form.component.html',
   styleUrls: ['./user-registration-form.component.scss'],
 })
 export class UserRegistrationFormComponent implements OnInit {
+  /**
+   * Input data for user registration.
+   */
   @Input() userData = { Username: '', Password: '', Email: '', Birthday: '' };
 
+  /**
+   * Create instance of UserRegistrationFormComponent.
+   * @param fetchApiData Service to make API calls.
+   * @param dialogRef A reference to the Material Dialog for registration.
+   * @param snackBar Material Snackbar service to display notifications.
+   * @param router Angular Router to navigate to other pages.
+   */
   constructor(
     public fetchApiData: FetchApiDataService,
     public dialogRef: MatDialogRef<UserRegistrationFormComponent>,
@@ -27,14 +40,18 @@ export class UserRegistrationFormComponent implements OnInit {
     public router: Router
   ) {}
 
+  /**
+   * Life cycle method called after component is initialized.
+   */
   ngOnInit(): void {}
 
-  // This is the function responsible for sending the form inputs to the backend
+  /**
+   * Send registration form inputs to the backend.
+   */
   registerUser(): void {
     this.fetchApiData.userRegistration(this.userData).subscribe(
       (result) => {
-        // Logic for a successful user registration goes here! (To be implemented)
-        this.dialogRef.close(); // This will close the modal on success!
+        this.dialogRef.close();
         this.snackBar.open('You have successfully signed up.', 'OK', {
           duration: 2000,
         });
